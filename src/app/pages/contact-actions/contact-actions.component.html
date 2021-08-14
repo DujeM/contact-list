@@ -1,0 +1,59 @@
+<div fxLayout="row wrap" fxLayoutAlign="center start">
+    <label *ngIf="!filePath && filePath !== ''" for="file-upload" fxLayout="row" fxLayoutAlign="center center" class="upload-button pointer">
+        <mat-icon class="upload-icon">cloud_upload</mat-icon>
+    </label>
+
+    <label *ngIf="filePath && filePath !== ''" for="file-upload" fxLayout="row" fxLayoutAlign="center center">
+        <img [src]="filePath" [alt]="contactForm.value.profileImg" class="upload-button pointer">
+    </label>
+
+    <input id="file-upload" type="file" accept="image/*" (change)="imagePreview($event)" />
+
+    <form [formGroup]="contactForm" (ngSubmit)="onSubmit()">
+        <mat-icon class="input-icon pointer">keyboard_return</mat-icon>
+        <div class="input-wrapper" fxLayout="column" fxLayoutAlign="start start">
+            <div class="input-divider"></div>
+            <div fxLayout="row" fxLayoutAlign="center center">
+                <mat-icon class="input-icon">person</mat-icon>
+                <p class="input-label">full name</p>
+            </div>
+            <input class="input" type="text" placeholder="Full name" formControlName="fullName">
+        </div>
+    
+        <div class="input-wrapper" fxLayout="column" fxLayoutAlign="start start">
+            <div class="input-divider"></div>
+            <div fxLayout="row" fxLayoutAlign="center center">
+                <mat-icon class="input-icon">email</mat-icon>
+                <p class="input-label">email</p>
+            </div>
+            <input class="input" type="text" placeholder="Email" formControlName="email">
+        </div>
+    
+        <div class="input-wrapper" fxLayout="column" fxLayoutAlign="start start">
+            <div class="input-divider"></div>
+            <div fxLayout="row" fxLayoutAlign="center center">
+                <mat-icon class="input-icon">phone</mat-icon>
+                <p class="input-label">numbers</p>
+            </div>
+            <ng-container formArrayName="numbers">
+                <div class="number-wrapper" *ngFor="let n of contactForm.controls.numbers['controls']; index as i">
+                  <ng-container [formGroupName]="i">
+                    <input class="input" type="text" placeholder="Number" formControlName="title">
+                    <input class="input input-xs" type="text" placeholder="Cell" formControlName="phoneNumber">
+                    <mat-icon class="input-icon pointer" (click)="removeNumber(i)">cancel</mat-icon>
+                  </ng-container>
+                </div>
+            </ng-container>
+        </div>
+    
+        <button mat-button type="button" class="input-label m-0" (click)="addNumber()">
+                <mat-icon class="input-icon">add_circle_outline</mat-icon>
+                Add number
+        </button>
+
+        <div class="buttons-wrapper" fxLayout="row" fxLayoutAlign="space-around center">
+            <button mat-button class="action-button cancel">Cancel</button>
+            <button mat-button class="action-button save" type="submit">Save</button>
+        </div>
+    </form>
+</div>

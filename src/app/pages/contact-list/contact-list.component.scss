@@ -1,0 +1,43 @@
+.contacts-wrapper {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-wrap: wrap;
+}
+
+.contact-actions {
+    display: none;
+}
+
+.contact-box {
+    cursor: pointer;
+    margin: 25px;
+    height: 150px;
+    width: 270px;
+    border: 1px solid rgba(187,196,195,0.4);
+    border-radius: 4px;
+    background-color: #FFFFFF;
+}
+
+.contact-box:hover {
+    border: 1px solid #2DA1AD;
+}
+
+.actions-wrapper {
+    width: 100%;
+}
+
+.icon-margin {
+    margin: 0 20px;
+}
+
+.profile-box {
+    width: 60px;
+    height: 60px;
+    border: 1px solid #BBC4C3;
+    border-radius: 50%;
+}
+
+.new-contact-box {
+    border: 1px dashed rgba(187,196,195,0.4);
+}
