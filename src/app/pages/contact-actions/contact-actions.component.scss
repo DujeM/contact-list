@@ -94,3 +94,11 @@
 input[type="file"] {
     display: none;
 }
+
+.error-input {
+    border: 2px solid #e11517;
+}
+
+.error-msg {
+    color: #e11517;
+}

@@ -1,9 +1,10 @@
 export interface Contact {
+    id: number;
     profileImg: string;
     fullName: string;
     email: string;
     numbers: PhoneNumber[];
-    favorit: boolean;
+    favorite: boolean;
 }
 
 export interface PhoneNumber {

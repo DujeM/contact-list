@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormArray, FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
+import { ActivatedRoute, Router } from '@angular/router';
 import { Contact, PhoneNumber } from 'src/app/models/contact';
 import { ContactService } from 'src/app/services/contact/contact.service';
 
@@ -11,29 +12,47 @@ import { ContactService } from 'src/app/services/contact/contact.service';
 export class ContactActionsComponent implements OnInit {
   contactForm: FormGroup;
   filePath: string;
+  editId: number;
 
+  get fullNameControl() { return this.contactForm.controls.fullName as FormControl; }
+  get emailControl() { return this.contactForm.controls.email as FormControl; }
+  get profileImgControl() { return this.contactForm.controls.profileImg as FormControl; }
   get numbersControl() { return this.contactForm.controls.numbers as FormArray; }
 
   constructor(
     private contactService: ContactService,
-    private fb: FormBuilder
-  ) { }
+    private fb: FormBuilder,
+    private router: Router,
+    private route: ActivatedRoute
+  ) {
+    this.editId = this.route.snapshot.params.id;
+   }
 
   ngOnInit(): void {
-    this.initForm();
+    if (!this.editId) return this.initForm();
+    this.initEditForm();
   }
 
   initForm() {
     this.contactForm = this.fb.group({
+        id: new FormControl(this.contactService.getUserId()),
         fullName: new FormControl('', Validators.required),
         email: new FormControl('', Validators.compose([Validators.required, Validators.email])),
         profileImg: new FormControl('', Validators.required),
+        favorite: new FormControl(false),
         numbers: new FormArray([
           new FormGroup({
           phoneNumber: new FormControl(''),
           title: new FormControl('')
         })])
     });
+  }
+
+  initEditForm() {
+    this.initForm();
+    const contact = this.contactService.getContact(this.editId);
+    this.contactForm.patchValue(contact);
+    this.filePath = contact.profileImg;
   }
 
   createContact(newContact: Contact) {
@@ -56,8 +75,12 @@ export class ContactActionsComponent implements OnInit {
   }
 
   onSubmit() {
-    console.log(this.contactForm.valid)
-    console.log('Submited', this.contactForm);
+    if (!this.contactForm.valid) return;
+
+    if (!this.editId) return this.contactService.createContact(this.contactForm.value);
+
+    this.contactService.editContact(this.contactForm.value);
+
   }
 
   imagePreview(e) {

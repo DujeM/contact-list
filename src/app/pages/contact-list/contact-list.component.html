@@ -5,35 +5,17 @@
             <mat-icon>add</mat-icon>
             <p>Add new</p>
         </div>
-        <div class="contact-box" fxLayout="column" fxLayoutAlign="center center">
+        <div class="contact-box" fxLayout="column" fxLayoutAlign="center center" *ngFor="let contact of contacts">
             <div class="actions-wrapper" fxLayout="row" fxLayoutAlign="space-between center">
-                <mat-icon class="icon-margin">favorite_border</mat-icon>
+                <mat-icon class="icon-margin" *ngIf="!contact.favorite" (click)="updateFavorite(contact, true)">favorite_border</mat-icon>
+                <mat-icon class="icon-margin" *ngIf="contact.favorite" (click)="updateFavorite(contact, false)">favorite</mat-icon>
                 <div class="icon-margin" fxLayout="row" fxLayoutAlign="center center" >
-                    <mat-icon>edit</mat-icon>
+                    <mat-icon [routerLink]="'/edit/' + contact.id">edit</mat-icon>
                     <mat-icon>delete_outline</mat-icon>
                 </div>
             </div>
-            <div class="profile-box"></div>
-            <p>Neko Ime </p>
-        </div>
-        <div class="contact-box" fxLayout="column" fxLayoutAlign="center center">
-            <div style="height: 30px; width: 30px; color: red;"></div>
-            <p>Neko Ime </p>
-        </div>
-        <div class="contact-box" fxLayout="column" fxLayoutAlign="center center">
-            <div style="height: 30px; width: 30px; color: red;"></div>
-
-            <p>Neko Ime </p>
-        </div>
-        <div class="contact-box" fxLayout="column" fxLayoutAlign="center center">
-            <div style="height: 30px; width: 30px; color: red;"></div>
-
-            <p>Neko Ime </p>
-        </div>
-        <div class="contact-box" fxLayout="column" fxLayoutAlign="center center">
-            <div style="height: 30px; width: 30px; color: red;"></div>
-
-            <p>Neko Ime </p>
+            <img src="{{contact.profileImg}}" alt="" class="profile-box">
+            <p>{{ contact.fullName }}</p>
         </div>
     </div>
 

@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { Contact } from 'src/app/models/contact';
+import { ContactService } from 'src/app/services/contact/contact.service';
 
 @Component({
   selector: 'app-contact-list',
@@ -6,10 +8,22 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./contact-list.component.scss']
 })
 export class ContactListComponent implements OnInit {
-
-  constructor() { }
+  contacts: Contact[] = [];
+  constructor(
+    private contactService: ContactService
+  ) { }
 
   ngOnInit(): void {
+    this.getContacts();
+  }
+
+  getContacts() {
+    this.contacts = this.contactService.getContacts();
+  }
+
+  updateFavorite(contact: Contact, favorite: boolean) {
+    contact.favorite = favorite;
+    this.contactService.editContact(contact);
   }
 
 }

@@ -10,14 +10,19 @@
     <input id="file-upload" type="file" accept="image/*" (change)="imagePreview($event)" />
 
     <form [formGroup]="contactForm" (ngSubmit)="onSubmit()">
-        <mat-icon class="input-icon pointer">keyboard_return</mat-icon>
+        <mat-icon class="input-icon pointer" [routerLink]="'/'">keyboard_return</mat-icon>
         <div class="input-wrapper" fxLayout="column" fxLayoutAlign="start start">
             <div class="input-divider"></div>
             <div fxLayout="row" fxLayoutAlign="center center">
                 <mat-icon class="input-icon">person</mat-icon>
                 <p class="input-label">full name</p>
             </div>
-            <input class="input" type="text" placeholder="Full name" formControlName="fullName">
+            <input class="input" [ngClass]="{'error-input': fullNameControl.invalid && (fullNameControl.dirty || fullNameControl.touched)}" type="text" placeholder="Full name" formControlName="fullName">
+            <div *ngIf="fullNameControl.invalid && (fullNameControl.dirty || fullNameControl.touched)">
+                <div *ngIf="fullNameControl.errors?.required">
+                    <span class="error-msg">Name is required.</span>
+                </div>
+            </div>
         </div>
     
         <div class="input-wrapper" fxLayout="column" fxLayoutAlign="start start">
@@ -26,7 +31,12 @@
                 <mat-icon class="input-icon">email</mat-icon>
                 <p class="input-label">email</p>
             </div>
-            <input class="input" type="text" placeholder="Email" formControlName="email">
+            <input class="input" [ngClass]="{'error-input': emailControl.invalid && (emailControl.dirty || emailControl.touched)}" type="text" placeholder="Email" formControlName="email">
+            <div *ngIf="emailControl.invalid && (emailControl.dirty || emailControl.touched)">
+                <div *ngIf="emailControl.errors?.required">
+                    <span class="error-msg">Email is required.</span>
+                </div>
+            </div>
         </div>
     
         <div class="input-wrapper" fxLayout="column" fxLayoutAlign="start start">
@@ -36,7 +46,7 @@
                 <p class="input-label">numbers</p>
             </div>
             <ng-container formArrayName="numbers">
-                <div class="number-wrapper" *ngFor="let n of contactForm.controls.numbers['controls']; index as i">
+                <div class="number-wrapper" *ngFor="let n of numbersControl.controls; index as i">
                   <ng-container [formGroupName]="i">
                     <input class="input" type="text" placeholder="Number" formControlName="title">
                     <input class="input input-xs" type="text" placeholder="Cell" formControlName="phoneNumber">
