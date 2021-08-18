@@ -10,8 +10,8 @@ export class ContactService {
 
   getContacts() {
     this.contacts = JSON.parse(localStorage.getItem('contacts'));
-    if (!this.contacts) this.contacts = [];
-    return this.contacts;
+
+    return this.contacts ? this.contacts : [];
   }
 
   getContact(id: number) {
@@ -38,17 +38,15 @@ export class ContactService {
     localStorage.setItem('contacts', JSON.stringify(this.contacts));
   }
 
-  updateContact(contact: Contact) {
-    localStorage.setItem('contacts', JSON.stringify(contact));
-  }
-
-  deleteContact() {
-    localStorage.removeItem('contacts');
+  deleteContact(contactId: number) {
+    this.contacts = JSON.parse(localStorage.getItem('contacts'))
+    this.contacts = this.contacts.filter(c => c.id != contactId);
+    localStorage.setItem('contacts', JSON.stringify(this.contacts));
   }
 
   getUserId() {
     this.contacts = JSON.parse(localStorage.getItem('contacts'))
     if (!this.contacts) return 1;
-    return this.contacts.length + 1; 
+    return this.contacts[this.contacts.length - 1].id + 1; 
   }
 }

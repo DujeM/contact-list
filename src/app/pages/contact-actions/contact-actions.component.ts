@@ -77,10 +77,13 @@ export class ContactActionsComponent implements OnInit {
   onSubmit() {
     if (!this.contactForm.valid) return;
 
-    if (!this.editId) return this.contactService.createContact(this.contactForm.value);
+    if (!this.editId) {
+      this.contactService.createContact(this.contactForm.value);
+      return this.router.navigate(['/']);
+    }
 
     this.contactService.editContact(this.contactForm.value);
-
+    this.router.navigate(['/']);
   }
 
   imagePreview(e) {

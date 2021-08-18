@@ -10,12 +10,18 @@ import { ContactListComponent } from './pages/contact-list/contact-list.componen
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { ContactActionsComponent } from './pages/contact-actions/contact-actions.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { AreYouSureComponent } from './dialogs/are-you-sure/are-you-sure.component';
+import { ContactDetailsComponent } from './pages/contact-details/contact-details.component';
+import { SearchPipe } from './pipes/search/search.pipe';
 
 @NgModule({
   declarations: [
     AppComponent,
     ContactListComponent,
-    ContactActionsComponent
+    ContactActionsComponent,
+    AreYouSureComponent,
+    ContactDetailsComponent,
+    SearchPipe
   ],
   imports: [
     BrowserModule,

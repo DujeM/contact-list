@@ -1,0 +1,36 @@
+<div class="m-40" fxLayout="row wrap" fxLayoutAlign="center center">
+    <img [src]="contact.profileImg" alt="profile_img" class="upload-button pointer">
+
+    <div>
+        <div class="border" fxLayout="row" fxLayoutAlign="space-between center">
+            <div fxLayout="row" fxLayoutAlign="center center">
+                <mat-icon class="icon" [routerLink]="'/'">keyboard_return</mat-icon>
+                <p class="title">{{ contact.fullName }}</p>
+            </div>
+            <div fxLayout="row" fxLayoutAlign="center center">
+                <mat-icon class="icon" *ngIf="!contact.favorite" (click)="updateFavorite(contact, true)">favorite_border</mat-icon>
+                <mat-icon class="icon" *ngIf="contact.favorite" (click)="updateFavorite(contact, false)">favorite</mat-icon>
+                <mat-icon class="icon" [routerLink]="'/edit/' + contact.id">edit</mat-icon>
+            </div>
+        </div>
+        <div fxLayout="column" fxLayoutAlign="center start">
+            <div class="label-wrapper" fxLayout="row" fxLayoutAlign="start center">
+                <p fxLayout="row" fxLayoutAlign="center center" class="label">
+                    <mat-icon class="label-icon">email</mat-icon>
+                    email
+                </p>
+                <p class="text">{{ contact.email }}</p>
+            </div>
+            <div fxLayout="row" fxLayoutAlign="start center">
+                <p fxLayout="row" fxLayoutAlign="center center" class="label">
+                    <mat-icon class="label-icon">phone</mat-icon>
+                    numbers
+                </p>
+                <div *ngFor="let num of contact.numbers" fxLayout="row" fxLayoutAlign="start center">
+                    <p class="text upper">{{ num.title }}</p>
+                    <p class="text underline">{{ num.phoneNumber }}</p>
+                </div>
+            </div>
+        </div> 
+    </div>
+</div>
