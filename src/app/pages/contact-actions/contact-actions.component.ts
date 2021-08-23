@@ -1,7 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { FormArray, FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
+import { MatDialog } from '@angular/material/dialog';
 import { ActivatedRoute, Router } from '@angular/router';
-import { Contact, PhoneNumber } from 'src/app/models/contact';
+import { AreYouSureComponent } from 'src/app/dialogs/are-you-sure/are-you-sure.component';
+import { Contact } from 'src/app/models/contact';
 import { ContactService } from 'src/app/services/contact/contact.service';
 
 @Component({
@@ -11,7 +13,6 @@ import { ContactService } from 'src/app/services/contact/contact.service';
 })
 export class ContactActionsComponent implements OnInit {
   contactForm: FormGroup;
-  filePath: string;
   editId: number;
 
   get fullNameControl() { return this.contactForm.controls.fullName as FormControl; }
@@ -23,7 +24,8 @@ export class ContactActionsComponent implements OnInit {
     private contactService: ContactService,
     private fb: FormBuilder,
     private router: Router,
-    private route: ActivatedRoute
+    private route: ActivatedRoute,
+    private dialog: MatDialog
   ) {
     this.editId = this.route.snapshot.params.id;
    }
@@ -51,12 +53,24 @@ export class ContactActionsComponent implements OnInit {
   initEditForm() {
     this.initForm();
     const contact = this.contactService.getContact(this.editId);
+
+    if (contact.numbers.length > 1 ) this.addNumberControls(contact.numbers.length);
+
     this.contactForm.patchValue(contact);
-    this.filePath = contact.profileImg;
   }
 
   createContact(newContact: Contact) {
     this.contactService.createContact(newContact)
+  }
+
+  addNumberControls(num: number) {
+    for (let i = 1; i < num; i++) {
+      this.numbersControl.push(
+        new FormGroup({
+        phoneNumber: new FormControl(''),
+        title: new FormControl('')
+      }));
+    }  
   }
 
   addNumber() {    
@@ -91,16 +105,29 @@ export class ContactActionsComponent implements OnInit {
     const reader = new FileReader();
 
     reader.onload = () => {
-      this.filePath = reader.result as string;
-
       this.contactForm.patchValue({
-        profileImg: this.filePath
+        profileImg: reader.result as string
       });
   
       this.contactForm.get('profileImg').updateValueAndValidity()
     }
 
     if (file) reader.readAsDataURL(file);
+  }
+
+  deleteContact(contactId: number) {
+    const dialogRef = this.dialog.open(AreYouSureComponent, {
+      width: '480px',
+      height: '240px',
+      panelClass: 'no-padding'
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      if (result) {
+        this.contactService.deleteContact(contactId);
+        this.router.navigate(['/']);
+      } 
+    });
   }
 
 }

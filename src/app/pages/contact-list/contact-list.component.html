@@ -12,22 +12,22 @@
 
     <div fxLayout="row wrap" fxLayoutAlign="center center">
         <div class="contact-box new-contact-box" fxLayout="column" fxLayoutAlign="center center" [routerLink]="'/create'">
-            <mat-icon class="icon-color">add</mat-icon>
-            <p class="icon-color">Add new</p>
+            <mat-icon class="icon-color new-text">add</mat-icon>
+            <p class="icon-color new-text">Add new</p>
         </div>
         <div *ngFor="let contact of contacts | search: searchInput">
             <div class="contact-box" fxLayout="column" fxLayoutAlign="center center" *ngIf="!toggleFavoriteOnly || (toggleFavoriteOnly && contact.favorite)">
                 <div class="actions-wrapper" fxLayout="row" fxLayoutAlign="space-between center">
                     <mat-icon class="icon-margin icon-color" *ngIf="!contact.favorite" (click)="updateFavorite(contact, true)">favorite_border</mat-icon>
                     <mat-icon class="icon-margin icon-color" *ngIf="contact.favorite" (click)="updateFavorite(contact, false)">favorite</mat-icon>
-                    <div class="icon-margin hide-icons" fxLayout="row" fxLayoutAlign="center center" >
+                    <div class="icon-margin hide-icons icons-evenly" fxLayout="row" fxLayoutAlign="center center" >
                         <mat-icon class="icon-color" [routerLink]="'/edit/' + contact.id">edit</mat-icon>
                         <mat-icon class="icon-color" (click)="deleteContact(contact.id)">delete_outline</mat-icon>
                     </div>
                 </div>
-                <div class="actions-wrapper" fxLayout="column" fxLayoutAlign="center center" [routerLink]="'/details/' + contact.id">
+                <div class="actions-wrapper profile-wrapper" fxLayout="column" fxLayoutAlign="center center" [routerLink]="'/details/' + contact.id">
                     <img src="{{contact.profileImg}}" alt="" class="profile-box">
-                    <p>{{ contact.fullName }}</p>
+                    <p class="name">{{ contact.fullName }}</p>
                 </div>
             </div>
         </div>

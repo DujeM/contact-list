@@ -1,3 +1,5 @@
+@import '../../scss/base';
+
 .input-wrapper {
     margin: 20px 0px;
 }
@@ -10,7 +12,7 @@
     box-sizing: border-box;
     height: 2px;
     width: 630px;
-    border: 1px solid #2DA1AD;
+    border: 1px solid $main-color;
     margin: 20px 0px;
 }
 
@@ -19,11 +21,11 @@
 }
 
 .input-icon {
-    color: #2DA1AD;
+    color: $main-color;
 }
 
 .input-label {
-    color: #2DA1AD;
+    color: $main-color;
     margin: 15px 5px;
 }
 
@@ -32,7 +34,7 @@
     box-sizing: border-box;
     height: 60px;
     width: 300px;
-    border: 1px solid #BBC4C3;
+    border: 1px solid $second-color;
     opacity: 0.4;
     border-radius: 4px;
 }
@@ -50,45 +52,23 @@
 }
 
 .upload-button {
-    box-sizing: border-box;
-    height: 186px;
-    width: 186px;
-    margin-right: 30px;
-    border: 3px solid rgba(187,196,195,0.3);
-    border-radius: 50%;
-    background-color: rgba(45,161,173,0.4);
-}
-
-.uploaded-img {
-    box-sizing: border-box;
-    height: 186px;
-    width: 186px;
-    margin-right: 30px;
-    border: 3px solid rgba(187,196,195,0.3);
-    border-radius: 50%;
+    @include upload-btn;
 }
 
 .upload-icon {
-    color: #fff;
+    color: $white-color;
 }
 
 .buttons-wrapper {
     margin: 20px;
 }
 
-.action-button {
-    height: 42px;
-    width: 160px;
-    border-radius: 28.5px;
-    color: #fff;
-}
-
 .cancel {
-    background-color: #BBC4C3;
+    @include action-btn($second-color);
 }
 
 .save {
-    background-color: #2DA1AD;
+    @include action-btn($main-color);
 }
 
 .pointer {
@@ -113,4 +93,32 @@ input[type="file"] {
 
 .error-msg {
     color: #e11517;
+}
+
+@media only screen and (max-width: 600px) {
+    .input-divider {
+        width: 325px;
+    }
+
+    .number-wrapper {
+        width: 325px;
+        flex-wrap: wrap;
+        justify-content: flex-start;
+
+        .input {
+            margin-bottom: 10px;
+        }
+
+        .input-icon {
+            padding: 20px;
+        }
+    }
+
+    .input-wrapper {
+        margin: 20px 25px;
+    }
+
+    .upload-button {
+        margin: 0px !important;
+    }
 }

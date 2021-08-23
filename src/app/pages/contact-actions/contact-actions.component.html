@@ -1,16 +1,26 @@
 <div class="m-40" fxLayout="row wrap" fxLayoutAlign="center start">
-    <label *ngIf="!filePath && filePath !== ''" for="file-upload" fxLayout="row" fxLayoutAlign="center center" class="upload-button pointer">
-        <mat-icon class="upload-icon">cloud_upload</mat-icon>
-    </label>
-
-    <label *ngIf="filePath && filePath !== ''" for="file-upload" fxLayout="row" fxLayoutAlign="center center">
-        <img [src]="filePath" [alt]="contactForm.value.profileImg" class="upload-button pointer">
+    <label for="file-upload">
+        <div *ngIf="!profileImgControl.value" fxLayout="row" fxLayoutAlign="center center" class="upload-button pointer">
+            <mat-icon class="upload-icon">cloud_upload</mat-icon>
+        </div>
+        <img *ngIf="profileImgControl.value" [src]="profileImgControl.value" [alt]="profile_image" class="upload-button pointer">
     </label>
 
     <input id="file-upload" type="file" accept="image/*" (change)="imagePreview($event)" />
+    <div *ngIf="profileImgControl.invalid">
+        <div *ngIf="profileImgControl.errors?.required">
+            <span class="error-msg">Profile image is required.</span>
+        </div>
+    </div>
 
     <form [formGroup]="contactForm" (ngSubmit)="onSubmit()">
-        <mat-icon class="input-icon pointer" [routerLink]="'/'">keyboard_return</mat-icon>
+        <div class="input-wrapper" fxLayout="row" fxLayoutAlign="space-between center">
+            <mat-icon class="input-icon pointer" [routerLink]="'/'">keyboard_return</mat-icon>
+            <p *ngIf="editId" class="input-icon pointer" fxLayout="row" fxLayoutAlign="center center" (click)="deleteContact(editId)">
+                Delete
+                <mat-icon>delete_outline</mat-icon>
+            </p>
+        </div>
         <div class="input-wrapper" fxLayout="column" fxLayoutAlign="start start">
             <div class="input-divider"></div>
             <div fxLayout="row" fxLayoutAlign="center center">
@@ -35,6 +45,9 @@
             <div *ngIf="emailControl.invalid && (emailControl.dirty || emailControl.touched)">
                 <div *ngIf="emailControl.errors?.required">
                     <span class="error-msg">Email is required.</span>
+                </div>
+                <div *ngIf="emailControl.errors?.email">
+                    <span class="error-msg">Please provide a valid email.</span>
                 </div>
             </div>
         </div>
@@ -62,8 +75,8 @@
         </button>
 
         <div class="buttons-wrapper" fxLayout="row" fxLayoutAlign="space-around center">
-            <button mat-button class="action-button cancel">Cancel</button>
-            <button mat-button class="action-button save" type="submit">Save</button>
+            <button mat-button class="cancel" type="button" [routerLink]="'/'">Cancel</button>
+            <button mat-button class="save" type="submit">Save</button>
         </div>
     </form>
 </div>

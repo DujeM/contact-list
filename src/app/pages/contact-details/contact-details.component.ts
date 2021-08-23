@@ -27,5 +27,4 @@ export class ContactDetailsComponent implements OnInit {
     contact.favorite = favorite;
     this.contactService.editContact(contact);
   }
-
 }

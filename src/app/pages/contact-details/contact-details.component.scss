@@ -1,26 +1,22 @@
+@import '../../scss/base';
+
 .upload-button {
-    box-sizing: border-box;
-    height: 186px;
-    width: 186px;
-    margin-right: 30px;
-    border: 3px solid rgba(187,196,195,0.3);
-    border-radius: 50%;
-    background-color: rgba(45,161,173,0.4);
+    @include upload-btn;
 }
 
 .border {
     width: 630px;
-    border-bottom: 1px solid #2DA1AD;
+    border-bottom: 1px solid $main-color;
 }
 
 .icon {
-    color: #BBC4C3;
+    color: $second-color;
     margin: 10px;
     cursor: pointer;
 }
 
 .title {
-    color: #BBC4C3;
+    color: $second-color;
     font-family: Lato;
     font-size: 28px;
     letter-spacing: 0;
@@ -37,7 +33,7 @@
 }
 
 .label {
-    color: #2DA1AD;
+    color: $main-color;
 }
 
 .label-icon {
@@ -45,7 +41,7 @@
 }
 
 .text {
-    color: #BBC4C3;
+    color: $second-color;
     font-family: Lato;
     font-size: 16px;
     letter-spacing: 0;
@@ -59,4 +55,55 @@
 
 .underline {
     text-decoration: underline;
+}
+
+.mobile-hide {
+    display: block !important;
+}
+
+.mobile-show {
+    display: none !important;
+}
+
+@media only screen and (max-width: 600px) {
+    .border {
+        width: 325px;
+        margin: 20px 0px;
+    }
+
+    .border-full-width {
+        width: 100%;
+        margin-top: 0px;
+    }
+
+    .info-wrapper {
+        place-content: center !important;
+        align-items: center !important;
+    }
+
+    .m-40 {
+        margin: 0px;
+    }
+
+    .w-100 {
+        width: 100%;
+    }
+
+    .mobile-hide {
+        display: none !important;
+    }
+
+    .mobile-show {
+        display: flex !important;
+    }
+
+    .upload-button {
+        width: 60px;
+        height: 60px;
+        margin: 25px 10px;
+    }
+
+    .title {
+        margin: 0px;
+    }
 }

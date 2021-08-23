@@ -1,3 +1,5 @@
+@import '../../scss/base';
+
 .contact-actions {
     display: none;
 }
@@ -8,14 +10,14 @@
     width: 440px;
     border: 1px solid #EAEAEA;
     border-radius: 4px;
-    background-color: #FFFFFF;
+    background-color: $white-color;
     box-shadow: 0 2px 34px 0 #E3E3E3;
 }
 
 .search-icon {
     position: absolute;
     padding: 13px;
-    color: #BBC4C3;
+    color: $second-color;
 }
 
 .contact-box {
@@ -25,11 +27,11 @@
     width: 270px;
     border: 1px solid rgba(187,196,195,0.4);
     border-radius: 4px;
-    background-color: #FFFFFF;
+    background-color: $white-color;
 }
 
 .contact-box:hover {
-    border: 1px solid #2DA1AD;
+    border: 1px solid $main-color;
 
     .hide-icons {
         visibility: visible;
@@ -45,7 +47,7 @@
 }
 
 .icon-color {
-    color: #BBC4C3;
+    color: $second-color;
 }
 
 .icon-margin {
@@ -55,7 +57,7 @@
 .profile-box {
     width: 60px;
     height: 60px;
-    border: 1px solid #BBC4C3;
+    border: 1px solid $second-color;
     border-radius: 50%;
 }
 
@@ -66,12 +68,12 @@
 .separator {
     box-sizing: border-box;
     height: 15px;
-    border: 1px solid #BBC4C3;
+    border: 1px solid $second-color;
     margin: 30px;
 }
 
 .tab-text {
-    color: #BBC4C3;
+    color: $second-color;
     font-family: Lato;
     font-size: 18px;
     letter-spacing: 0;
@@ -80,5 +82,55 @@
 }
 
 .tab-selected {
-    color: #2DA1AD;
+    color: $main-color;
 }
+
+@media only screen and (max-width: 600px) {
+    .search-input {
+      width: 300px;
+    }
+
+    .contact-box {
+        height: 60px;
+        width: 325px;
+        margin: 10px;
+        flex-direction: row !important;
+        place-content: flex-start !important;
+    }
+
+    .profile-wrapper {
+        order: -1;
+        flex-direction: row !important;
+        place-content: space-evenly !important;
+    }
+
+    .profile-box {
+        height: 46px;
+        width: 46px;
+        border: 3px solid rgba(187,196,195,0.3);
+    }
+
+    .icon-margin {
+        margin: 0px;
+    }
+
+    .hide-icons {
+        visibility: visible;
+    }
+
+    .icons-evenly {
+        width: 100%;
+        place-content: space-evenly !important;
+    }
+
+    .name {
+        margin: 0px;
+        font-family: Lato;
+        font-size: 14px;
+        color: #ADB8B6;
+    }
+
+    .new-text {
+        margin: 0 10px;
+    }
+  }
