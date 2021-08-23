@@ -1,15 +1,17 @@
 <div class="m-40" fxLayout="row wrap" fxLayoutAlign="center start">
-    <label for="file-upload">
-        <div *ngIf="!profileImgControl.value" fxLayout="row" fxLayoutAlign="center center" class="upload-button pointer">
-            <mat-icon class="upload-icon">cloud_upload</mat-icon>
-        </div>
-        <img *ngIf="profileImgControl.value" [src]="profileImgControl.value" [alt]="profile_image" class="upload-button pointer">
-    </label>
-
-    <input id="file-upload" type="file" accept="image/*" (change)="imagePreview($event)" />
-    <div *ngIf="profileImgControl.invalid">
-        <div *ngIf="profileImgControl.errors?.required">
-            <span class="error-msg">Profile image is required.</span>
+    <div class="m-20" fxLayout="column" fxLayoutAlign="center center">
+        <label for="file-upload">
+            <div *ngIf="!profileImgControl.value" fxLayout="row" fxLayoutAlign="center center" class="upload-button pointer">
+                <mat-icon class="upload-icon">cloud_upload</mat-icon>
+            </div>
+            <img *ngIf="profileImgControl.value" [src]="profileImgControl.value" [alt]="profile_image" class="upload-button pointer">
+        </label>
+    
+        <input id="file-upload" type="file" accept="image/*" (change)="imagePreview($event)" />
+        <div *ngIf="profileImgControl.invalid">
+            <div *ngIf="profileImgControl.errors?.required">
+                <span class="error-msg">Profile image is required.</span>
+            </div>
         </div>
     </div>
 
